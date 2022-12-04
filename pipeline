@@ -1,0 +1,18 @@
+pipeline{
+    agent any
+    
+    stages{
+        stage("One"){
+            steps{
+                timeout(unit: 'SECONDS', time: 5) {
+                sh '''
+                    for i in 1 2 3 4 5 6 7 8 9  ; do 
+                        sleep 1
+                        echo "hello $i"
+                    done
+                sh '''
+                }
+            }   
+        }
+    }
+}
