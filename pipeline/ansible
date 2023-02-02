@@ -7,19 +7,11 @@ pipeline {
 
 
    stages{
-         stage('Build') {
-            steps {
-                // Clean before build
-                cleanWs()
-                // We need to explicitly checkout from SCM here
-                checkout scm
-            }
-        }
         stage('Functions'){
             steps{
                 sh '''
-                    . ./function_postgres.sh
-                     rm -f $vars_file $out_file
+                    . ./functions.sh
+                    rm -f $vars_file $out_file
                     touch $vars_file $out_file
             '''
             }
