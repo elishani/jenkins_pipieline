@@ -13,7 +13,7 @@ get_input()
     key=$1
     column=$2
     msg=$3
-    eval "value=$(echo \\\$$key)"
+    eval "value=$(echo \$$$key)"
     value=$(echo $value | sed -e "s/$delimiter//g" -e 's/  */ /g' )
     
     [ "X`echo $value | grep -i "~~"`" != X ]&& msg_error "$msg"
