@@ -1,0 +1,17 @@
+---
+- name: Check Disk Space Usage on partition '/'
+  hosts: ALL_group
+  gather_facts: no
+  tasks:
+    - name: "Check disk space on partition '/'"
+      shell: |
+        [[ `df -h {{ partition }} | tail -n 1 | awk '{print $5 }' | tr -d %` -gt  {{ usage }} ]]&& echo BAD || echo GOOD
+      register: 'result'
+    - name: "Check resualt on disk space on partition '/'"
+      assert:
+        that:
+          - "'GOOD' in result.stdout"
+        fail_msg: "***ERROR disk space on partion '/' is over the limit"
+        success_msg: "***OK disk space on partion '/' is under the limit"
+     with_items:
+     - { partition: /,usage: 70 }
