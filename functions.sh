@@ -44,7 +44,7 @@ set_var()
     [ X$1 = X ]&& msg_error "No paramter to insert to function"
 
     sed  -i "s/${1}=.*//" $vars_file
-    eval "echo $1=\\\$$1" >> $vars_file
+    eval "echo $1=\$$1" >> $vars_file
     check_vars_file
     .  $vars_file
 }
@@ -61,7 +61,7 @@ check_if_exists()
     var_key=$1
     msg=$2
     
-    eval var_value=\\\$$var_key
+    eval var_value=\$$var_key
     echo "$1='$var_value'"
     if [ -z $var_value ]; then
         msg_error "$msg"
@@ -123,10 +123,10 @@ pad_loop()
         para=$(echo $key | awk -F'-' '{print \$1}')
         num_char=$(echo $key | awk -F'-' '{print \$2}')
         
-        eval "para_str=\\\$$para"
+        eval "para_str=\$$para"
         num_value=$(echo ${#para_str})
         [ $num_value -ge $num_char ]&& num_char=$(expr $num_value + 2)
-        eval "echo ${para}_pad=\\\$${para}-XXXXXXXXXXXXXXXXXXXXXX" | sed 's/-X//' > $temp1
+        eval "echo ${para}_pad=\$${para}-XXXXXXXXXXXXXXXXXXXXXX" | sed 's/-X//' > $temp1
         pr=$(cat $temp1 | awk -F'=' '{print \$1}')
         str=$(cat $temp1 | awk -F'=' '{print \$2}' | cut -c1-$num_char)
         eval "echo ${pr}=${str}" >> $vars_file
@@ -137,7 +137,7 @@ header()
 {
     echo "Parameters for job: '$JOB_NAME' number '${BUILD_ID}'">> $out_file
     for key in $*; do
-        eval "value=$(echo "\\\$$key")"
+        eval "value=$(echo "\$$key")"
         echo "${key}='$value'" >> $out_file
     done
     echo "$equal" >> $out_file
