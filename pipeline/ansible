@@ -4,9 +4,16 @@ pipeline {
         choice choices: ['~~~~~~ To select group', '[test] - - - group'], name: 'group'
         choice choices: ['~~~~~~ Playbook file to run', 'eli1.yaml - - - for testing', 'eli2.yaml - - -  WARNING Makes changes on machine', ], name: 'playbook'
     }
-
-
    stages{
+    stage('Build') {
+            steps {
+                // Clean before build
+                cleanWs()
+                // We need to explicitly checkout from SCM here
+                checkout scm
+                echo "Building ${env.JOB_NAME}..."
+            }
+        }
         stage('Functions'){
             steps{
                 sh '''
