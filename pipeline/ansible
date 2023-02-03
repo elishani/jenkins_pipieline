@@ -34,6 +34,7 @@ pipeline {
                 show_file $vars_file
                 check_vars_file
                 
+                cp playbooks/$playbook $playbook
 
                 sed -i "s/hosts: ALL_group/hosts: $group/" $playbook
                 
