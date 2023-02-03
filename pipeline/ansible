@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         choice choices: ['~~~~~~ To select group', '[test] - - - group'], name: 'group'
-        choice choices: ['~~~~~~ Playbook file to run', 'eli1.yaml - - - for testing', 'eli2.yaml - - -  WARNING Makes changes on machine', ], name: 'playbook'
+        choice choices: ['~~~~~~ Playbook file to run', 'disk_df.yaml - - - for testing', 'disk_limit.yaml - - -  WARNING Makes changes on machine', ], name: 'playbook'
     }
    stages{
         stage('Functions'){
